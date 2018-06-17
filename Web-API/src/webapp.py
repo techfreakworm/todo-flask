@@ -1,6 +1,6 @@
 from datetime import date
 
-from flask import Flask, Request, Response, jsonify
+from flask import Flask, Request, Response, jsonify, request
 # from flask_sqlalchemy import Column, Date, Integer, String, create_engine
 # from sqlalchemy.ext.declarative import declarative_base
 # from sqlalchemy.orm import sessionmaker
@@ -8,10 +8,11 @@ from flask_sqlalchemy import SQLAlchemy
 #from flask_marshmallow import Marshmallow
 from marshmallow_sqlalchemy import ModelSchema
 from flask_cors import CORS
+import json
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todos.db'
-CORS(app)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 db = SQLAlchemy(app)
 
@@ -41,15 +42,12 @@ db.create_all()
 
 
 ########### ROUTING AND API CALLS ###########
-@app.route('/todos/', methods = ['PUT'])
+@app.route('/todos/', methods = ['POST'])
 def create_todo():
-    # data = Request.data
-    # todo_obj = Todo()
-    # todo_obj.text = data.text
-    # todo_obj.done = data.done
-    # db.session.add(todo_obj)
-    # db.session.commit()
-    return True
+    todo_obj=Todo(text=request.form.get('text'),done=False)
+    db.session.add(todo_obj)
+    db.session.commit()
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
 @app.route('/todos/', methods=['GET'])
 def get_todo():
@@ -60,13 +58,23 @@ def get_todo():
     return jsonify(todos_list)
     
 
-@app.route('/todos/<id>', methods=['PUT'])
-def modify_todo():
-    return "something"
 
-@app.route('/todos/<id>', methods=['DELETE'])
-def delete_todo():
-    return "something"
+@app.route('/todos/<int:id>/', methods=['PUT'])
+def modify_todo(id):
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+
+@app.route('/todos/<int:id>/', methods=['OPTIONS'])
+def option(id):
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+
+@app.route('/todos/<int:id>/', methods=['DELETE'])
+def delete_todo(id):
+    Response = jsonify({'success':'true'})
+    Response.headers.add('Access-Control-Allow-Origin', '*')
+    todo_obj = Todo.query.get(id)
+    db.session.delete(todo_obj)
+    db.session.commit()
+    return Response
 
 
 
