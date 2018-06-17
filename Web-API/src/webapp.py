@@ -59,13 +59,19 @@ def get_todo():
     
 
 
-@app.route('/todos/<int:id>/', methods=['PUT'])
-def modify_todo(id):
-    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+@app.route('/todos/<int:id_obj>/', methods=['PUT'])
+def modify_todo(id_obj):
+    todo_obj=Todo.query.filter_by(id = id_obj).first()
+    todo_obj.done = bool(request.form.get('done'))
+    # print(todo_obj.done)
+    db.session.commit()
+    Response = jsonify({'success':'true'})
+    Response.headers.add('Access-Control-Allow-Origin', '*')
+    return Response
 
-@app.route('/todos/<int:id>/', methods=['OPTIONS'])
-def option(id):
-    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+# @app.route('/todos/<int:id>/', methods=['OPTIONS'])
+# def option(id):
+#     return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
 @app.route('/todos/<int:id>/', methods=['DELETE'])
 def delete_todo(id):
