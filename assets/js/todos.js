@@ -7,7 +7,7 @@ window.onload = function() {
   //XTODO: call GET all todos api here
   let myTodoList = {};
   $.ajax({
-    url: "http://techfreakworm.pythonanywhere.com/todos/",
+    url: "https://techfreakworm.pythonanywhere.com/todos/",
     method: "GET",
     success: function(data) {
       myTodoList.todos = data;
@@ -19,14 +19,14 @@ window.onload = function() {
     if (event.which === 13 && inputText.value) {
       //XTODO: call POST api here
       $.ajax({
-        url: "http://techfreakworm.pythonanywhere.com/todos/",
+        url: "https://techfreakworm.pythonanywhere.com/todos/",
         method: "POST",
         data: {
           text: inputText.value
         },
         success: function() {
           $.ajax({
-            url: "http://techfreakworm.pythonanywhere.com/todos/",
+            url: "https://techfreakworm.pythonanywhere.com/todos/",
             method: "GET",
             success: function(data) {
               myTodoList.todos = data;
@@ -90,7 +90,7 @@ window.onload = function() {
       case "todo-done":
         //XTODO: call PUT api here
         $.ajax({
-          url: `http://techfreakworm.pythonanywhere.com/todos/${todo.id}/`,
+          url: `https://techfreakworm.pythonanywhere.com/todos/${todo.id}/`,
           method: "PUT",
           data: {
             text: todo.text,
@@ -98,7 +98,7 @@ window.onload = function() {
           },
           success: function() {
             $.ajax({
-              url: "http://techfreakworm.pythonanywhere.com/todos/",
+              url: "https://techfreakworm.pythonanywhere.com/todos/",
               method: "GET",
               success: function(data) {
                 myTodoList.todos = data;
@@ -111,11 +111,11 @@ window.onload = function() {
       case "todo-delete":
         //XTODO: call DELETE api here
         $.ajax({
-          url: `http://techfreakworm.pythonanywhere.com/todos/${todo.id}/`,
+          url: `https://techfreakworm.pythonanywhere.com/todos/${todo.id}/`,
           method: "DELETE",
           success: function() {
             $.ajax({
-              url: "http://techfreakworm.pythonanywhere.com/todos/",
+              url: "https://techfreakworm.pythonanywhere.com/todos/",
               method: "GET",
               success: function(data) {
                 myTodoList.todos = data;
