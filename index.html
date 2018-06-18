@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>TodoList</title>
+  <link rel="stylesheet" href="assets/css/todos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <script src="assets/js/lib/jquery-3.2.1.min.js"></script> -->
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="heading">
+      <h1>To-Do List</h1>
+    </div>
+    <div class="main">
+      <input autofocus type="text" id="input-text" placeholder="Let's add a To-Do!">
+      <div id="del-done" class="hide">
+        <i class="fa fa-history" aria-hidden="true" data-target="todo-delete"></i>
+        <i class="fa fa-trash" aria-hidden="true" data-target="todo-delete"></i>
+      </div>
+      <ul id="todolist">
+        <!-- <li>
+          <span class="todo-move">
+              <i class="fa fa-chevron-up todo-up" aria-hidden="true" data-target="todo-up"></i>
+              <i class="fa fa-chevron-down todo-down" aria-hidden="true" data-target="todo-down"></i>
+          </span>
+          <span class="todo-text" data-target="todo-text">Go to potions class</span>
+          <span class="todo-grow"></span>
+          <i class="fa fa-trash todo-del" aria-hidden="true" data-target="todo-delete"></i>
+        </li> -->
+      </ul>
+    </div>
+
+    <!-- <input type="button" value="Remove All Done" id="del-done"> -->
+
+  </div>
+  <script src="assets/js/lib/jquery-3.2.1.min.js"></script>
+  <script src="assets/js/todos.js"></script>
+</body>
+
+</html>
